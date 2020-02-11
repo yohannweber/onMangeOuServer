@@ -1,0 +1,67 @@
+const express = require('express');
+const router = express.Router();
+const mongoose = require('mongoose');
+const Votes = require('../models/votes');
+
+const findById = (id, req, resp, cb) => {
+    Votes.findById(id)
+        .exec()
+        .then(doc => cb[0](doc, req, resp))
+        .catch(err => cb[1](err, req, resp));
+};
+
+const errFunction = (err, req, resp) => {
+    resp.status(500).json(err);
+};
+
+const okFunction = (doc, req, resp) => {
+    console.log(doc);
+    if (!doc) {
+        resp.status(404).send("No vote founds with this ID");
+    }
+    else {
+        resp.status(200).json(doc);
+    }
+};
+
+const addvoter = (doc, req, resp) => {
+
+    console.log(doc.voters);
+};
+
+
+router.get('/', (req, resp) => {
+    Votes.find()
+        .exec()
+        .then(doc => okFunction(doc, req, resp))
+        .catch(err => errFunction(err, req, resp));
+});
+
+router.get("/:voteId", (req, resp) => {
+    const id = req.params.voteId;
+    findById(id, req, resp, [okFunction, errFunction] );
+});
+
+
+router.post("/", (req, resp, next) => {
+    const votes = new Votes({
+        _id: new mongoose.Types.ObjectId(),
+        name: req.body.name,
+        descr: req.body.descr,
+        type: req.body.type,
+        voters: req.body.voters
+    });
+
+    votes.save()
+        .then(doc => okFunction(doc, req, resp))
+        .catch(err => errFunction(err, req, resp));
+});
+
+router.post("/addvoter", (req, resp, next) => {
+    const id = req.body.id;
+    console.log(id);
+    findById(id, req, resp, [addvoter, errFunction] );
+
+});
+
+module.exports = router;

@@ -1,0 +1,28 @@
+{
+  "name": "onmangeou",
+  "version": "1.0.0",
+  "description": "Centraliser les désirs gustatifs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yohannweber/onmangeouserver.git"
+  },
+  "keywords": [
+    "Node"
+  ],
+  "author": "Yohann WEBER",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yohannweber/onmangeouserver/issues"
+  },
+  "homepage": "https://github.com/yohannweber/onmangeouserver#readme",
+  "dependencies": {
+    "@hapi/joi": "^17.0.2",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}
