@@ -29,7 +29,7 @@ class Restaurants {
                     { 
                     "id": "1",
                     "name" : "Lionel",
-                    "comment": "pas de retard hsqelfhejkfhejkhfqekjhf"
+                    "comment": "pas de retard"
                     },
 
                     { 
@@ -40,13 +40,13 @@ class Restaurants {
                     { 
                     "id": "11",
                     "name" : "Lionelito",
-                    "comment": "pas de retard  efjkeshfskqfkhfqejkhfeqkjheqkj"
+                    "comment": "pas de retard"
                     },
 
                     { 
                     "id": "12",
                     "name" : "Laurentia",
-                    "comment": "J'ai la dalle ! Rdv à 12h. fsjhfksjenfkjsefnsjenfsejknfesjknfesjkfnesjkf"  
+                    "comment": "J'ai la dalle ! Rdv à 12h."  
                     },
                     { 
                     "id": "13",
