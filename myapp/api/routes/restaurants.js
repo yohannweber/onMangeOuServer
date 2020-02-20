@@ -124,14 +124,14 @@ class Restaurants {
         ];*/
         let restaurants = [
             {
-                id: -1,
+                id: "-1",
                 name: "Pas disponible",
                 type: "NC",
                 descr: "Pas là ce midi",
                 persons: []
             },
             {
-                id: 1,
+                id: "1",
                 name: "Pink Mama",
                 type: "Italien",
                 descr: "De la viande maturée",
@@ -139,45 +139,52 @@ class Restaurants {
                 ]
             },
             {
-                id: 2,
+                id: "2",
                 name: 'Le petit T',
                 type: 'Thaï',
                 descr: 'Des super bobuns pour - de 8€',
                 persons: []
             },
             {
-                id: 3,
+                id: "3",
                 name: 'Gallo rosso',
                 type: 'Pizzeria',
                 descr: 'Pizza au feu de bois',
                 persons: []
             },
             {
-                id: 4,
+                id: "4",
                 name: 'Flesh',
                 type: 'Argentin',
                 descr: 'De la viande !',
                 persons: []
             },
             {
-                id: 5,
+                id: "5",
                 name: 'PNY',
                 type: 'Burgers',
                 descr: 'Des burgers en veux-tu ? En voilà !',
+                persons: []
+            },
+            {
+                id: "6",
+                name: "La salade dans l'assiette",
+                type: 'Bar à salades',
+                descr: 'De la frisée en laitue ? en voilà !',
                 persons: []
             }
         ];
 
         expressApp.get('/api/restaurants', (req, resp) => {
-            resp.send(restaurants.filter(r => r.id === -1 || r.persons.length > 0 ));
+            resp.send(restaurants.filter(r => r.id === "-1" || r.persons.length > 0 ));
         });
 
         expressApp.get('/api/oldRestaurants', (req, resp) => {
-            resp.send(restaurants.filter(r => r.id !== -1 && r.persons.length === 0 ));
+            resp.send(restaurants.filter(r => r.id !== "-1" && r.persons.length === 0 ));
         });
 
         expressApp.get('/api/restaurants/:id', (req, resp) => {
-            const restaurant = restaurants.find(c => c.id === parseInt(req.params.id));
+            const restaurant = restaurants.find(c => c.id === req.params.id);
             if (!restaurant) return resp.status(404).send('The restaurant does not exist!');
             resp.send(restaurant);
         });
@@ -188,8 +195,9 @@ class Restaurants {
                 resp.status('404').send(error);
             })*/
             //schema.validate(req.body);
+            let id = restaurants.length + 1;
             const restaurant = {
-                id: restaurants.length + 1,
+                id: id.toString(),
                 name: req.body.name,
                 type: req.body.type,
                 descr: req.body.descr,
@@ -201,7 +209,7 @@ class Restaurants {
         });
 
         expressApp.delete('/api/restaurants/:id', (req, resp) => {
-            const restaurant = restaurants.find(c => c.id === parseInt(req.params.id));
+            const restaurant = restaurants.find(c => c.id === req.params.id);
             if (!restaurant) return resp.status(404).send('The restaurant does not exist!');
 
             const index = restaurants.indexOf(restaurant);
@@ -215,13 +223,13 @@ class Restaurants {
         });*/
 
         expressApp.get('/api/surveys/:id', (req, resp) => {
-            const persons = restaurants.find(c => c.id === parseInt(req.params.id)).persons;
+            const persons = restaurants.find(c => c.id === req.params.id).persons;
             if (!persons) return resp.status(404).send('The survey does not exist!');
             resp.send(persons);
         });
 
         expressApp.get('/api/surveys/:id', (req, resp) => {
-            const persons = restaurants.find(c => c.id === parseInt(req.params.id)).persons;
+            const persons = restaurants.find(c => c.id === req.params.id).persons;
             if (!persons) return resp.status(404).send('The survey does not exist!');
             resp.send(persons);
         });
@@ -241,7 +249,7 @@ class Restaurants {
                 restaurants[i].persons = restaurants[i].persons.filter( p => { return p.id !== req.body.id } );
             }
 
-            let persons = restaurants.find(c=> c.id === parseInt(req.params.restaurantId)).persons;
+            let persons = restaurants.find(c=> c.id === req.params.restaurantId).persons;
             const person = {
                 id: req.body.id,
                 name : req.body.name,
