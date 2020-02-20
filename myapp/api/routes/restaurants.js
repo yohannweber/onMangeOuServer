@@ -1,17 +1,17 @@
-const Joi = require('@hapi/joi');
+//const Joi = require('@hapi/joi');
 
 class Restaurants {
 
     constructor(expressApp) {
 
-
+        /*
         const schema = Joi.object({
             name: Joi.string().min(3).required(),
             descr: Joi.string().min(3).max(30).required(),
             type: Joi.string().min(3).max(10).required(),
-        });
+        });*/
 
-        let restaurants = [
+        /*let restaurants = [
             {
                 id: -1,
                 name: "Pas disponible",
@@ -119,19 +119,61 @@ class Restaurants {
                 name: 'PNY',
                 type: 'Burgers',
                 descr: 'Des burgers en veux-tu ? En voilà !',
+                persons: []
+            }
+        ];*/
+        let restaurants = [
+            {
+                id: -1,
+                name: "Pas disponible",
+                type: "NC",
+                descr: "Pas là ce midi",
+                persons: []
+            },
+            {
+                id: 1,
+                name: "Pink Mama",
+                type: "Italien",
+                descr: "De la viande maturée",
                 persons: [
-                    { 
-                    "id": "9",
-                    "name" : "Noname",
-                    "comment": "pas de retard"
-                    }
                 ]
+            },
+            {
+                id: 2,
+                name: 'Le petit T',
+                type: 'Thaï',
+                descr: 'Des super bobuns pour - de 8€',
+                persons: []
+            },
+            {
+                id: 3,
+                name: 'Gallo rosso',
+                type: 'Pizzeria',
+                descr: 'Pizza au feu de bois',
+                persons: []
+            },
+            {
+                id: 4,
+                name: 'Flesh',
+                type: 'Argentin',
+                descr: 'De la viande !',
+                persons: []
+            },
+            {
+                id: 5,
+                name: 'PNY',
+                type: 'Burgers',
+                descr: 'Des burgers en veux-tu ? En voilà !',
+                persons: []
             }
         ];
-        //let restaurants = [];
 
         expressApp.get('/api/restaurants', (req, resp) => {
-            resp.send(restaurants);
+            resp.send(restaurants.filter(r => r.id === -1 || r.persons.length > 0 ));
+        });
+
+        expressApp.get('/api/oldRestaurants', (req, resp) => {
+            resp.send(restaurants.filter(r => r.id !== -1 && r.persons.length === 0 ));
         });
 
         expressApp.get('/api/restaurants/:id', (req, resp) => {
@@ -145,7 +187,7 @@ class Restaurants {
             /*const result = Joi.validate(req.body, schema, (error, value) => {
                 resp.status('404').send(error);
             })*/
-            schema.validate(req.body);
+            //schema.validate(req.body);
             const restaurant = {
                 id: restaurants.length + 1,
                 name: req.body.name,

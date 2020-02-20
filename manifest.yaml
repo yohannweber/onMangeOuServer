@@ -1,0 +1,6 @@
+---
+applications:
+- name: onMangeOuServer
+  path: myapp
+  random-route: true
+  memory: 50M
